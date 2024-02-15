@@ -6,6 +6,7 @@
  * Lab: 4B
  */
 
+#include <stdio.h>
 #include "stm32l476xx.h"
 #include "I2C.h"
 #include "SysClock.h"
@@ -42,24 +43,23 @@ int main(void) {
 	int i;
 	uint8_t SecondaryAddress;
 	uint8_t Data_Receive;
-	uint8_t Data_Send;
+	uint8_t Data_Send = 0;
 	while(1) {	
 		// Determine Secondary Address
-		//
 		// Note the "<< 1" must be present because bit 0 is treated as a don't care in 7-bit addressing mode
 		SecondaryAddress = 0b1001000 << 1; // STUB - Fill in correct address 
 		
 		// [TODO] - Get Temperature 
 		
-		I2C_SendData(2, SecondaryAddress, Data_Send, 8);
+		I2C_SendData(I2C1, SecondaryAddress, &Data_Send, 1);
 		
-		// 
 		// First, send a command to the sensor for reading the temperature
 		// Next, get the measurement
 		
 		// [TODO] - Print Temperature to Termite
 		
-		I2C_ReceiveData(2, SecondaryAddress, Data_Receive, 8);
+		I2C_ReceiveData(I2C1, SecondaryAddress, &Data_Receive, 1);
+		printf("temp : %i", Data_Receive);
 		
 		// Some delay
 		for(i = 0; i < 50000; ++i); 
