@@ -17,6 +17,7 @@ extern void Error_Handler(void);
 //===============================================================================
 void I2C_GPIO_Init(void) {
 	// [TODO]
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 	
 	//PB6 Initialization
 	//Output = open drain (1)
@@ -74,7 +75,7 @@ void I2C_Initialization(void){
 	
 	//Number 2
 	// Part A
-	// Disable I2C?
+	// Disable I2C
 	I2C1->CR1 &= ~I2C_CR1_PE;
 	// Enable analog noise filter
 	I2C1->CR1 &= ~I2C_CR1_ANFOFF;
@@ -105,7 +106,7 @@ void I2C_Initialization(void){
 	//Write own address to register
 	I2C1->OAR1 = OwnAddr << 1 | I2C_OAR1_OA1EN;
 	// Reenable own address 1
-	//I2C1->OAR1 |= I2C_OAR1_OA1EN;
+	I2C1->OAR1 |= I2C_OAR1_OA1EN;
 	
 	// Part D
 	// Reenable I2C
