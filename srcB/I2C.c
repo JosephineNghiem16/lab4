@@ -62,7 +62,6 @@ void I2C_Initialization(void){
 	uint32_t OwnAddr = 0x52;
 	
 	// [TODO]
-	
 	// Number 1
 	// Part A - enable I2C clock
 	RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN;
@@ -75,13 +74,21 @@ void I2C_Initialization(void){
 	
 	//Number 2
 	// Part A
+	// Disable I2C?
 	I2C1->CR1 &= ~I2C_CR1_PE;
+	// Enable analog noise filter
 	I2C1->CR1 &= ~I2C_CR1_ANFOFF;
+	// Disable digital noise filter
 	I2C1->CR1 &= ~I2C_CR1_DNF;
+	// Enable error interrupts
 	I2C1->CR1 |= I2C_CR1_ERRIE;
+	// Enable clock stretching
 	I2C1->CR1 &= ~I2C_CR1_NOSTRETCH;
+	// Set master to operate in 7-bit addressing mode
 	I2C1->CR2 &= ~I2C_CR2_ADD10;
+	// Enable automatic end mode
 	I2C1->CR2 |= I2C_CR2_AUTOEND;
+	// Enable NACK generation
 	I2C1->CR2 |= I2C_CR2_NACK;
 	
 	// Part B
@@ -89,13 +96,19 @@ void I2C_Initialization(void){
 	I2C1->TIMINGR = 7 << 28 | 9 << 20 | 12 << 16 | 39 << 8 | 46;
 	
 	// Part C
+	// Disable own address 1
 	I2C1->OAR1 &= ~I2C_OAR1_OA1EN;
+	// Disable own address 2
 	I2C1->OAR2 &= ~I2C_OAR2_OA2EN;
+	// Set to 7-bit mode
 	I2C1->OAR1 &= ~I2C_OAR1_OA1MODE;
+	//Write own address to register
+	I2C1->OAR1 = OwnAddr << 1 | I2C_OAR1_OA1EN;
+	// Reenable own address 1
+	//I2C1->OAR1 |= I2C_OAR1_OA1EN;
 	
-	I2C1->OAR1 |= OwnAddr << 1;
-	I2C1->OAR1 |= I2C_OAR1_OA1EN;
 	// Part D
+	// Reenable I2C
 	I2C1->CR1 |= I2C_CR1_PE;
 }
 
