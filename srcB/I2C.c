@@ -94,7 +94,7 @@ void I2C_Initialization(void){
 	
 	// Part B
 	// 12 = 11.5 actually (SDADEL)
-	I2C1->TIMINGR = 7 << 28 | 9 << 20 | 12 << 16 | 39 << 8 | 46;
+	I2C1->TIMINGR = 7 << 28 | 10 << 20 | 12 << 16 | 40 << 8 | 47;
 	
 	// Part C
 	// Disable own address 1
@@ -104,7 +104,7 @@ void I2C_Initialization(void){
 	// Set to 7-bit mode
 	I2C1->OAR1 &= ~I2C_OAR1_OA1MODE;
 	//Write own address to register
-	I2C1->OAR1 = OwnAddr << 1 | I2C_OAR1_OA1EN;
+	I2C1->OAR1 = OwnAddr;
 	// Reenable own address 1
 	I2C1->OAR1 |= I2C_OAR1_OA1EN;
 	
