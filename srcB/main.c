@@ -59,7 +59,7 @@ int main(void) {
 		// [TODO] - Print Temperature to Termite
 		
 		I2C_ReceiveData(I2C1, SecondaryAddress, &Data_Receive, 1);
-		printf("temp : %i", Data_Receive);
+		printf("\ntemp : %i", Data_Receive);
 		
 		// Some delay
 		for(i = 0; i < 50000; ++i); 
