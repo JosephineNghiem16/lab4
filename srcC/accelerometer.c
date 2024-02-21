@@ -4,6 +4,7 @@
 
 void accWrite(uint8_t addr, uint8_t val){
 	// TODO access SPI_Transfer_Data
+	
 }
 
 uint8_t accRead(uint8_t addr){
