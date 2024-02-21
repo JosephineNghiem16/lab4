@@ -13,6 +13,8 @@ void UART2_Init(void) {
 }
 
 void UART1_GPIO_Init(void) {
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+	
 	GPIOB->MODER |= GPIO_MODER_MODE6_1;
 	GPIOB->MODER &= ~GPIO_MODER_MODE6_0;
 	

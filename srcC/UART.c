@@ -7,6 +7,8 @@ void UART2_Init(void) {
 }
 
 void UART2_GPIO_Init(void) {
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+	
 	GPIOA->MODER |= GPIO_MODER_MODE2_1;
 	GPIOA->MODER &= ~GPIO_MODER_MODE2_0;
 	

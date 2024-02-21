@@ -58,7 +58,7 @@ int main(void) {
 			printf("ERROR: unknown command\n");
 		}
 		
-		Init_USARTx(1);
+		//Init_USARTx(1);
 		
 	}
 }
